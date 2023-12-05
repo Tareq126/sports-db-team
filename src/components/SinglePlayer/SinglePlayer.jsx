@@ -20,7 +20,32 @@ const SinglePlayer = ({ player, cart, setCart }) => {
       return;
     }
   };
-  console.log(cart);
+
+  const handleBookmark = () => {
+    const info = {
+      strPlayer,
+      idPlayer,
+      strCutout,
+      price: 125,
+      bookmark: "true",
+    };
+    const prevBookmark = localStorage.getItem("bookmark");
+    const oldBookmark = JSON.parse(prevBookmark);
+    if (oldBookmark) {
+      const isExist = oldBookmark.find((p) => p.idPlayer === idPlayer);
+      if (isExist) {
+        alert("Already Bookmarked");
+        return;
+      } else {
+        localStorage.setItem(
+          "bookmark",
+          JSON.stringify([...oldBookmark, info])
+        );
+      }
+    } else {
+      localStorage.setItem("bookmark", JSON.stringify([info]));
+    }
+  };
 
   return (
     <div className="card" data-aos="zoom-in">
@@ -30,7 +55,9 @@ const SinglePlayer = ({ player, cart, setCart }) => {
       <button onClick={handleAddToCart} className="card-btn">
         Add To Cart
       </button>
-      <button className="card-btn">Bookmark</button>
+      <button onClick={handleBookmark} className="card-btn">
+        Bookmark
+      </button>
     </div>
   );
 };
