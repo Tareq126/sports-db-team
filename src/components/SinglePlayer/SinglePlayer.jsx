@@ -12,12 +12,15 @@ const SinglePlayer = ({ player, cart, setCart }) => {
       price: 125,
     };
 
-    if (cart) {
-      const newPlayer = [...cart, info];
-      setCart(newPlayer);
+    if (cart?.length) {
+      setCart([...cart, info]);
+      return;
+    } else {
+      setCart([info]);
+      return;
     }
-    console.log(cart);
   };
+  console.log(cart);
 
   return (
     <div className="card" data-aos="zoom-in">
